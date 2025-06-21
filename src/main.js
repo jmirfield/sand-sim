@@ -26,7 +26,7 @@ const world = new World(buffer, bufferCtx, 250, false)
 const sands = []
 const loop = () => {
   if (pressed && pos?.x !== undefined && pos?.y !== undefined) {
-    circle(world, world.selection(pos), Number(slider.value()), color).forEach(s => { if (world.add(s)) sands.push(s) })
+    circle(world, world.selection(pos), Number(slider.value()), color).forEach(s => { if (world.add(s)) { sands.push(s)}  })
   }
 
   const stage = []
@@ -46,12 +46,9 @@ const loop = () => {
     s()
   }
 
+
   for (let i = 0; i < sands.length; i++) {
     const s = sands[i]
-    if (!s) {
-      continue
-    }
-
     s.draw()
 
     if (s.state) {

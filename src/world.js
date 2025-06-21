@@ -45,7 +45,7 @@ export class World {
     }
 
     add(sand) {
-        if (sand.pos.x > this.size - 1 || sand.pos.x < 0) {
+        if (sand.pos.x > this.size - 1 || sand.pos.x < 0 || sand.pos.y < 0) {
             return false
         }
         if (this.grid[sand.pos.x][sand.pos.y]) {

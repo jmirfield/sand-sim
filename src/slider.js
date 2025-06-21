@@ -3,7 +3,7 @@ export const createSlider = (id = "slider") => {
     const slider = document.createElement("input")
     slider.type = "range"
     slider.min = "1"
-    slider.max = "25"
+    slider.max = "100"
     slider.value = "3"
     slider.id = id
 

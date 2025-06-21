@@ -27,7 +27,7 @@ export class Sand {
     }
 
     checkbelow = () => {
-        if (this.pos.y + 1 >= this.world.size - 1) {
+        if (this.pos.y + 1 > this.world.size - 1) {
             return true
         }
         return !!this.world.grid[this.pos.x][this.pos.y + 1]
@@ -41,14 +41,14 @@ export class Sand {
     }
 
     checkright = () => {
-        if (this.pos.x + 1 >= this.world.size - 1) {
+        if (this.pos.x + 1 > this.world.size - 1) {
             return true
         }
         return !!this.world.grid[this.pos.x + 1][this.pos.y + 1]
     }
 
     getbelow = () => {
-        if (this.pos.y + 1 >= this.world.size - 1) {
+        if (this.pos.y + 1 > this.world.size - 1) {
             return
         }
         return this.world.grid[this.pos.x][this.pos.y + 1]
@@ -62,14 +62,14 @@ export class Sand {
     }
 
     getright = () => {
-        if (this.pos.x + 1 >= this.world.size - 1) {
+        if (this.pos.x + 1 > this.world.size - 1) {
             return
         }
         return this.world.grid[this.pos.x + 1][this.pos.y + 1]
     }
 
     gobelow = () => {
-        if (this.pos.y + 1 >= this.world.size - 1) {
+        if (this.pos.y + 1 > this.world.size - 1) {
             return
         }
 
@@ -89,7 +89,7 @@ export class Sand {
     }
 
     goright = () => {
-        if (this.pos.x + 1 >= this.world.size - 1) {
+        if (this.pos.x + 1 > this.world.size - 1) {
             return
         }
         this.world.grid[this.pos.x][this.pos.y] = undefined
@@ -111,12 +111,22 @@ export class Sand {
         const isright = this.checkright()
         if (isbelow) {
             if (isleft && isright) {
-                if (
-                    (this.getleft()?.state || x - 1 < 0) &&
-                    (this.getright()?.state || x + 1 > this.world.size - 1) &&
-                    (y + 1 >= this.world.size - 1 || this.getbelow().state)
-                )
-                    this.state = 1
+                if (this.getbelow()?.state) {
+                    if (this.getright()?.state && this.getleft()?.state) {
+                        this.state = 1
+                        return
+                    }
+
+                    if (this.pos.x + 1 > this.world.size - 1 && this.getleft()?.state) {
+                        this.state = 1
+                        return
+                    }
+
+                    if (this.pos.x - 1 < 0 && this.getright()?.state) {
+                        this.state = 1
+                        return
+                    }
+                }
                 return
             }
 
