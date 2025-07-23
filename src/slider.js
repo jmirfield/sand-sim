@@ -7,16 +7,13 @@ export const createSlider = (id = "slider") => {
     slider.value = "3"
     slider.id = id
 
-    // Optional: Create label
     const label = document.createElement("label")
     label.htmlFor = id
     label.textContent = "Size: "
 
-    // Optional: Display current value
     const display = document.createElement("span")
     display.textContent = slider.value
 
-    // Update display on input
     slider.oninput = () => {
         display.textContent = slider.value
     }

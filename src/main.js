@@ -1,5 +1,4 @@
 import { createCanvas, getMousePos } from "./canvas";
-import { getRandomColor } from "./color";
 import { circle } from "./sand";
 import { createSlider } from "./slider";
 import { World } from "./world";
@@ -9,6 +8,16 @@ const { canvas, context } = createCanvas(500, 500, true)
 document.body.appendChild(canvas)
 const slider = createSlider()
 document.body.appendChild(slider)
+const wheel = document.createElement("div")
+wheel.id = "wheel"
+document.body.appendChild(wheel)
+
+const defaultcolor = "#cf0d26"
+let pressed = false, color = defaultcolor, pos = {}
+const cw = Raphael.colorwheel($("#wheel")[0], 150).color(defaultcolor)
+cw.onchange(function(evt) {
+  color = evt.hex
+})
 
 const buffer = document.createElement("canvas");
 buffer.width = canvas.width;
@@ -16,10 +25,8 @@ buffer.height = canvas.height;
 const bufferCtx = buffer.getContext("2d");
 
 
-let pressed = false, color = getRandomColor(), pos = {}
-
 canvas.onmousemove = (event) => pos = getMousePos(canvas, event)
-canvas.onmousedown = () => { pressed = true; color = getRandomColor() }
+canvas.onmousedown = () => { pressed = true;}
 canvas.onmouseup = () => pressed = false
 
 const world = new World(buffer, bufferCtx, 250, false)
